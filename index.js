@@ -45,23 +45,23 @@ app.post(
       sendMessage({
         "messaging_product": "whatsapp",
         "recipient_type": "individual",
-        "to": "254797792447",
+        "to": req.body.from,
         "type": "text",
         "text": { // the text object
           "preview_url": false,
-          "body": `You said '${req.body.text.body}'`
+          "body": req.body.text.body
         }
       })
     } catch (e) {
       throw e;
     }
-    
+
     res
-            .status(200)
-            .json({
-                success: true,
-                message: "Successfully Sent Callback"
-            })
+      .status(200)
+      .json({
+        success: true,
+        message: "Successfully Sent Callback"
+      })
   }
 )
 
