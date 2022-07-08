@@ -105,6 +105,38 @@ curl --location --request PUT 'https://hackathon-4-proxy.onrender.com/api/v1/gro
 * If user's payment fails, the chatbot should let the user know that payment has failed, and should also send a negative trigger to the parking api, letting it know number plate x payment failed, hence state to stay unpaid and closed.
 
 
-# WhatsApp Send Messages Documentation
+## WhatsApp Send Messages Documentation
 
 [WhatsApp Send Messages Documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages)
+
+## Staging Links
+* Group One
+`https://hackathon-4-team-one.onrender.com`
+
+* Group Two
+`https://hackathon-4-team-two.onrender.com`
+
+* Group Three
+`https://hackathon-4-team-three.onrender.com`
+
+* Group Four
+`https://hackathon-4-team-four.onrender.com`
+
+* Group Five
+`https://hackathon-4-team-five.onrender.com`
+
+## MPESA GATEWAY
+* MPESA ENDPOINT
+`https://es9b8fu024.execute-api.eu-west-1.amazonaws.com/naihack/pay`
+
+-The above endpoint accepts only post requests
+-For authorization purposes, include the below header in your request
+
+`AuthorizationToken dessd1S4Ssd3r3rkd2fHdysbd09sddGKtwDBPJ`
+ 
+`Supply the following to initiate a payment. Ideally, account reference will be your vehicle number`
+
+-int Amount
+-string PhoneNumber
+-string NotificationCallBackUrl (And endpoint that I can push the mpesa payment notification once user has completed the payment process)
+-string AccountReference 
