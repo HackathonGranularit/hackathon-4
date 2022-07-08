@@ -137,9 +137,14 @@ curl --location --request PUT 'https://hackathon-4-proxy.onrender.com/api/v1/gro
 -Supply the following to initiate a payment. Ideally, account reference will be your vehicle number
 
 `int Amount`
+
 `string PhoneNumber`
+
 `string NotificationCallBackUrl (And endpoint that I can push the mpesa payment notification once user has completed the payment process)`
+
 `string AccountReference`
+
+-See below 
 
 ```js
 let config = {
