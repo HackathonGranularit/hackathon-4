@@ -3,16 +3,16 @@ const mongoose = require("mongoose")
 const User = mongoose.Schema({
     userName: {
     type: Number,
-    required: true,
+    required: false,
   },
   numberPlate:{
       type:[String],
-      required: true,
+      required: false,
   },
   timestamp:{
       type:Date,
-      required: true,
+      required: false,
   }
 
 })
-
+module.exports = mongoose.model("User", User)
