@@ -140,3 +140,30 @@ curl --location --request PUT 'https://hackathon-4-proxy.onrender.com/api/v1/gro
 -string PhoneNumber
 -string NotificationCallBackUrl (And endpoint that I can push the mpesa payment notification once user has completed the payment process)
 -string AccountReference 
+
+```js
+const axios = require('axios');
+
+const sendMessage = (body) => {
+    const url = `https://waba.360dialog.io/v1/messages`
+    const headers = {
+        'Content-Type': 'application/json',
+        'D360-API-KEY': 'FSHBI59lo6uLQBarrtWxAO1mAK'
+    }
+    axios.post(
+        url,
+        body,
+        {
+            headers:headers
+        }
+    ).catch(
+        (e) => {
+            console.log(e)
+        }
+    )
+}
+module.exports = {
+    sendMessage 
+}
+
+```
