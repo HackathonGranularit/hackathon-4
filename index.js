@@ -5,9 +5,7 @@ const dotenv = require("dotenv")
 const app = express()
 const { sendMessage } = require('./helpers')
 const { getReply }  = require('./reply/reply')
-const { checkPlate }  = require('./payment/payment')
-const { makePayment } = require('./payment/payment')
-const { processPayment } = require('./payment/payment')
+const payment = require('./payment/payment')
 
 // connect to the database
 const { connectDatabase } = require("./config/db")
@@ -77,8 +75,8 @@ app.post(
 app.post('/mpesa_callback',(req,res) => {
   console.log("======== MPESA RESPONSE =========");
   console.log(res.body);
-  processPayment(res.body).then(response => {
-    const msg = response.status?'Payment successful':'Payment not successful.Try Again'
+  payment.processPayment(res.body).then(response => {
+    const msg = res.body.ResultCode === "0"?'Payment successful':'Payment not successful.Try Again'
     sendMessage({
       "messaging_product": "whatsapp",
       "recipient_type": "individual",

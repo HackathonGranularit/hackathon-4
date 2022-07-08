@@ -34,10 +34,12 @@ const processPayment = (body) => {
   const PhoneNumber = body.PhoneNumber;
   const plate_number = body.AccountReference;
   const is_paid = body.ResultCode === "0" ? true : false;
-  completeTransaction(plate_number,PhoneNumber,is_paid);
+  const status = "closed";
+  completeTransaction(plate_number,PhoneNumber,is_paid,status);
 
 };
 
 module.exports = {
   makePayment,
+  processPayment
 };
