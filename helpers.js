@@ -33,6 +33,7 @@ const makePayment = (body) => {
       }
   )
 }
+
 module.exports = {
   sendMessage,
   makePayment
