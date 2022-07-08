@@ -1,17 +1,17 @@
 const vehicleModel = require("../Models/vehicle");
 
-const checkPlate = async (req, res) => {
+const checkPlate = async (plateNo) => {
   try {
-    const { plateNo } = req.body;
-    const plate = vehicleModel.findOne({
-      plateNo: plateNo,
+    const plate = await vehicleModel.findOne({
+      plateNo,
     });
-    if (!plateExists) {
-      res.status(404).json({ message: "plate number does not exist" });
+    if (!plate) {
+      throw "plate number does not exist"
     }
-    res.status(204).json(plate);
+    return Promise(plate);
   } catch (error) {
     console.error(error);
+    return []
   }
 };
 

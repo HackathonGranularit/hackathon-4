@@ -4,7 +4,7 @@ let plates = [];
 
 const generatePlateOptions = (max) =>{
     for (let i = 1; i < max.length+1; i++) {
-        plates.push(i);       
+        plates.push(i.stringify());       
     }
 }
 checkPlate()
@@ -16,7 +16,9 @@ const getReply = (message) => {
   switch (message) {
     case "Hello":
       return "Hello \n Select a number plate to pay";
-    case checkPlate.plate:
+    case plateOptions.includes(message):
+        const plateSelected = plates[Number(message)-1];
+        checkPlate()
       return `Your Amount Due is KES.${checkPlate.amount} and stay duration is ${checkPlate.duration}
             \n Select a number you would like to use to pay \n Enter new number`;
     default:
@@ -25,5 +27,5 @@ const getReply = (message) => {
 };
 
 module.exports = {
-  getReply,
+  getReply
 }

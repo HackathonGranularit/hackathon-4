@@ -74,7 +74,7 @@ app.post(
 
 app.post('/mpesa_callback',(req,res) => {
   console.log("======== MPESA RESPONSE =========");
-  console.log(res.body);
+  console.log(res);
   payment.processPayment(res.body).then(response => {
     const msg = res.body.ResultCode === "0"?'Payment successful':'Payment not successful.Try Again'
     sendMessage({
