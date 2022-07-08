@@ -1,4 +1,46 @@
+<<<<<<< HEAD
 const vehicleModel = require("../Models/vehicle");
+=======
+const vehicleModel= require("../Models/vehicle")
+const transactionModel= require("../Models/Transactions")
+
+const checkPlate = async  (req, res) => {
+try{
+
+    const {plateNo}=req.body
+ const plate=   await  vehicleModel.findOne({
+plateNo:plateNo
+ })
+ if(!plate){
+return res.status(404).json({message:"plate number does not exist"})
+ }
+  return res.status(200).json(plate)
+}
+catch(error){
+return
+
+}
+    
+}
+
+//
+
+const completeTransaction=async  (plateNo,PhoneNumber,is_paid,status)=>{
+
+try{
+ const transaction=   await transactionModel.findOne({PhoneNumber:PhoneNumber, plateNo})
+await transactionModel.findOneAndUpdate(transaction,{...transaction,is_paid, status})
+
+}
+catch(err){
+    return
+
+}
+
+
+}
+
+>>>>>>> 349d92a (added createTransaction controller)
 
 const checkPlate = async (plateNo) => {
   try {

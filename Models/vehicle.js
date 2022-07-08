@@ -22,9 +22,6 @@ const vehicleSchema= new mongoose.Schema(
         trim:true,
 
     }
-
-
-
 }
 
 

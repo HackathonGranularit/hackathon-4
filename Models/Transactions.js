@@ -14,7 +14,7 @@ trim:true
             type:String,
             required:true,
             enum:["open", "closed"],
-            default:open
+            default:"open"
         },
         isPaid:{
             type:Boolean,
@@ -22,7 +22,12 @@ trim:true
             default:false
         },
         plateNo:{
-            type:String
+            type:String,
+             required:true,
+        trim:true
+
+
         }
     }
 )
+module.exports= mongoose.model("Transactions", transactionSchema)
