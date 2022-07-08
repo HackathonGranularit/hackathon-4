@@ -4,6 +4,9 @@ const cors = require("cors")
 const dotenv = require("dotenv")
 const app = express()
 const { sendMessage } = require('./helpers')
+const { getReply }  = require('./reply/reply')
+const { checkPlate }  = require('./payment/payment')
+const { makePayment } = require('./payment/payment')
 
 // connect to the database
 const { connectDatabase } = require("./config/db")

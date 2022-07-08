@@ -1,4 +1,4 @@
-const sendReply = (message) => {
+const getReply = (message) => {
     switch (key) {
         case value:
             
@@ -11,5 +11,5 @@ const sendReply = (message) => {
 
 
 module.exports = {
-    sendReply
+    getReply
 }

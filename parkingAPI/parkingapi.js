@@ -1,8 +1,8 @@
-const parkingApi = (plate_number) => {
+const checkPlate = (plate_number) => {
     
 }
 
 
 module.exports = {
-    parkingApi
+    checkPlate
 }
