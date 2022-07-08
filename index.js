@@ -3,13 +3,9 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 const dotenv = require("dotenv")
 const app = express()
-const { sendMessage } = require('./helpers')
 const { getReply }  = require('./reply/reply')
-const payment = require('./payment/payment')
-
-//get router demo
-const router= require("./Routes/route")
-
+const payment = require("./payment/payment")
+const {sendMessage} = require("./helpers")
 // connect to the database
 const { connectDatabase } = require("./config/db")
 const mongoose = require("mongoose");
@@ -44,7 +40,6 @@ app.use(express.json());
 /**
  * ROUTES
  */
-app.use("/", router)
 
 app.post(
   `/callback`,
@@ -52,18 +47,17 @@ app.post(
     console.log('message',req.body.text.body);
     activeUser = req.body.from;
     try {
-      getReply(req.body.text.body).then(response => {
-        sendMessage({
-          "messaging_product": "whatsapp",
-          "recipient_type": "individual",
-          "to": req.body.from,
-          "type": "text",
-          "text": { // the text object
+      const response = getReply(req);
+      sendMessage({
+        "messaging_product": "whatsapp",
+        "recipient_type": "individual",
+        "to":  req.body.from,
+        "type": "text",
+        "text": { // the text object
             "preview_url": false,
             "body": response
           }
-        })
-      })
+    });
     } catch (e) {
       throw e;
     }

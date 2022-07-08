@@ -1,13 +1,13 @@
 const vehicleModel= require("../Models/vehicle")
 
 
-const getAllPlates= async (req, res)=>{
+const getAllPlates= async ()=>{
 
 
     try{
       const plates=  await vehicleModel.find({})
 
-      res.status(200).json({message:plates})
+      return {message:plates}
 
     }
     catch(error){
