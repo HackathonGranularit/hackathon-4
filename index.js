@@ -8,7 +8,7 @@ const { sendMessage } = require('./helpers')
 // connect to the database
 const { connectDatabase } = require("./config/db")
 const mongoose = require("mongoose");
-
+const replyMessage = require("./reply")
 dotenv.config()
 
 const mongoDbUri = process.env.MONGO_DB_URL;
@@ -52,6 +52,7 @@ app.post(
           "body": req.body.text.body
         }
       })
+      replyMessage(req.body.text.body)
     } catch (e) {
       throw e;
     }
