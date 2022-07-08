@@ -28,6 +28,7 @@ const makePayment = (body) => {
   ).catch(
       (e) => {
           console.log(e)
+          
       }
   )
 }
