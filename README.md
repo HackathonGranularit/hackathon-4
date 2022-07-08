@@ -105,6 +105,23 @@ curl --location --request PUT 'https://hackathon-4-proxy.onrender.com/api/v1/gro
 * If user's payment fails, the chatbot should let the user know that payment has failed, and should also send a negative trigger to the parking api, letting it know number plate x payment failed, hence state to stay unpaid and closed.
 
 
-# WhatsApp Send Messages Documentation
+## WhatsApp Send Messages Documentation
 
 [WhatsApp Send Messages Documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages)
+
+## Staging Links
+* Group One
+`https://hackathon-4-team-one.onrender.com`
+
+* Group Two
+`https://hackathon-4-team-two.onrender.com`
+
+* Group Three
+`https://hackathon-4-team-three.onrender.com`
+
+* Group Four
+`https://hackathon-4-team-four.onrender.com`
+
+* Group Five
+`https://hackathon-4-team-five.onrender.com`
+
