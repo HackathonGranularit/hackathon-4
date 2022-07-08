@@ -4,7 +4,6 @@ const cors = require("cors")
 const dotenv = require("dotenv")
 const app = express()
 const { sendMessage, makePayment } = require('./helpers')
-
 // connect to the database
 const { connectDatabase } = require("./config/db")
 const mongoose = require("mongoose");
@@ -72,27 +71,46 @@ app.post(
 
 app.post('/payment-callback',
   async (req, res) => {
-    console.log(req.body)
-    try {
-      makePayment(
-        {
-          "Amount": 1,
-          "PhoneNumber": "+254727214536",
-          "NotificationCallBackUrl": "http://5f6a-41-139-133-17.ngrok.io/payment-callback ",
-          "AccountReference": "Test"
-        }
-      )
+    result = req.body.ResultCode
+    if (result == 0){
+      try {
+        sendMessage({
+          "messaging_product": "whatsapp",
+          "recipient_type": "individual",
+          "to": req.body.PhoneNumber,
+          "type": "text",
+          "text": { // the text object
+            "preview_url": false,
+            "body": `Payment has been received`
+          }
+        })
+        
+      } catch (error) {
+        sendMessage({
+          "messaging_product": "whatsapp",
+          "recipient_type": "individual",
+          "to": req.body.PhoneNumber,
+          "type": "text",
+          "text": { // the text object
+            "preview_url": false,
+            "body": `Payment of not succesful`
+          }
+        })
+        
+      }
 
-    } catch (e) {
-      throw e;
-    } 
+    }
+    else {
+
+    }
 
     res
-      .status(200)
-      .json({
-        success: true,
-        message: "Successfully Sent Callback"
-      })
+    .status(200)
+    .json({
+      success: true,
+      message: "Successfully Sent Callback"
+    })
+    
   }
 )
 app.listen(port, () => {
