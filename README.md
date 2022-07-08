@@ -134,12 +134,34 @@ curl --location --request PUT 'https://hackathon-4-proxy.onrender.com/api/v1/gro
 
 `AuthorizationToken dessd1S4Ssd3r3rkd2fHdysbd09sddGKtwDBPJ`
  
-`Supply the following to initiate a payment. Ideally, account reference will be your vehicle number`
+-Supply the following to initiate a payment. Ideally, account reference will be your vehicle number
 
--int Amount
--string PhoneNumber
--string NotificationCallBackUrl (And endpoint that I can push the mpesa payment notification once user has completed the payment process)
--string AccountReference 
+`int Amount`
+`string PhoneNumber`
+`string NotificationCallBackUrl (And endpoint that I can push the mpesa payment notification once user has completed the payment process)`
+`string AccountReference`
+
+```js
+let config = {
+  headers: {
+    AuthorizationToken: "dessd1S4Ssd3r3rkd2fHdysbd09sddGKtwDBPJ",
+  }
+}
+
+axios.post(' https://es9b8fu024.execute-api.eu-west-1.amazonaws.com/naihack/pay', {
+	phoneNumber: "+2547XXXXXXXX",
+    amount: 10,
+    accountReference: "KDA377X",
+    NotificationCallBackUrl: "https://{your handler url}"
+}, config)
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
 
 ```js
 const axios = require('axios');
