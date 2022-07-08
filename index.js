@@ -40,7 +40,7 @@ app.use(express.json());
 app.post(
   `/callback`,
   async (req, res) => {
-    console.log(req.body)
+    console.log('message',req.body.text.body)
     try {
       sendMessage({
         "messaging_product": "whatsapp",
@@ -65,6 +65,9 @@ app.post(
   }
 )
 
+app.get('/',(req,res) => {
+  res.send({message:"Hello"});
+});
 
 app.listen(port, () => {
   console.log(`api running on port ${port}`)
