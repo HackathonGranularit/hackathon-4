@@ -7,7 +7,7 @@ const replyMessage = (message) =>{
     let regex = /[A-Z]{3}\s\d{3}\S$/g
     try {
         if (message ==="Hi"){
-            const userExist = await User.findOne({username:req.body.from});
+            const userExist =  User.findOne({username:req.body.from});
             if(userExist){
                 userExist.plates.forEach( element => res.status(200).send(element))
                 response = "Your amount is 50"
