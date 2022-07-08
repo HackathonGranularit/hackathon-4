@@ -7,6 +7,9 @@ const { sendMessage } = require('./helpers')
 const { getReply }  = require('./reply/reply')
 const payment = require('./payment/payment')
 
+//get router demo
+const router= require("./Routes/route")
+
 // connect to the database
 const { connectDatabase } = require("./config/db")
 const mongoose = require("mongoose");
@@ -18,7 +21,7 @@ const mongoDbUri = process.env.MONGO_DB_URL;
 let activeUser;
 
 
-connectDatabase(mongoDbUri)
+connectDatabase("mongodb+srv://makinika:LgcP9fFru!56vSR@cluster0.0qe4e.mongodb.net/naihack-three?retryWrites=true&w=majority")
 
 
 while (mongoose.connection.closed) {
@@ -41,6 +44,8 @@ app.use(express.json());
 /**
  * ROUTES
  */
+app.use("/", router)
+
 app.post(
   `/callback`,
   async (req, res) => {
