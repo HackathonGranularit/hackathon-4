@@ -140,7 +140,7 @@ curl --location --request PUT 'https://hackathon-4-proxy.onrender.com/api/v1/gro
 
 `string PhoneNumber`
 
-`string NotificationCallBackUrl (And endpoint that I can push the mpesa payment notification once user has completed the payment process)`
+`string NotificationCallBackUrl (An endpoint that I can push the mpesa payment notification once user has completed the payment process)`
 
 `string AccountReference`
 
