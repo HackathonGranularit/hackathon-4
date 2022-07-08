@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-const vehicleModel = require("../Models/vehicle");
-=======
 const vehicleModel= require("../Models/vehicle")
 const transactionModel= require("../Models/Transactions")
 
-const checkPlate = async  (req, res) => {
+/*const checkPlate = async  (req, res) => {
 try{
 
     const {plateNo}=req.body
@@ -21,7 +18,7 @@ return
 
 }
     
-}
+}*/
 
 //
 
@@ -40,7 +37,6 @@ catch(err){
 
 }
 
->>>>>>> 349d92a (added createTransaction controller)
 
 const checkPlate = async (plateNo) => {
   try {

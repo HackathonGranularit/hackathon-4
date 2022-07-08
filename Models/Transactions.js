@@ -4,7 +4,7 @@ const transactionSchema= new mongoose.Schema(
 
     {
         phoneNumber:{
-type:Number,
+type:String,
 required:true,
 trim:true
 
