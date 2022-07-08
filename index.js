@@ -39,9 +39,10 @@ app.use(express.json());
 app.post(
   `/callback`,
   async (req, res) => {
-    console.log(req.body)
-    let message = replyMessage(req.body.text.body)
-    console.log(message)
+    console.log("Request Body",req.body)
+    let message = replyMessage(req.body)
+    console.log("message",message)
+    if (message != null){
     try {
       sendMessage({
         "messaging_product": "whatsapp",
@@ -55,7 +56,9 @@ app.post(
       })
      
     } catch (e) {
-      throw e;
+      console.log("call back error", e);
+    }}else{
+      console.log('Response is empty')
     }
 
     res

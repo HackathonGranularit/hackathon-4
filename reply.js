@@ -1,53 +1,48 @@
 
+const { connectDatabase } = require("./config/db")
 const User = require("./config/models/User")
 const { makePayment } = require("./helpers")
 
-const replyMessage = (message) =>{
+const replyMessage = (message) => {
     let response = ""
     let regex = /[A-Z]{3}\s\d{3}\S$/g
     try {
-        if (message ==="Hi"){
-            const userExist =  User.findOne({username:req.body.from});
-            if(userExist){
-                userExist.plates.forEach( element => res.status(200).send(element))
-                response = "Your amount is 50"
+        if (message.text.body == "Hi") {
+            const userExist = User.findOne({ userName: message.from });
+            if (userExist) {
+                // userExist.plates.forEach(element => res.status(200).send(element))
+                response = "Parking fee is 300 , Reply with Pay to make a payment"
 
-                if(message === "Pay"){
-                    makePayment(
-                        {
-                            "Amount": 300,
-                            "PhoneNumber": body.from,
-                            "NotificationCallBackUrl": "http://5f6a-41-139-133-17.ngrok.io/payment-callback ",
-                            "AccountReference": "Test" 
-                        }
-                    )
-                }
-            }else{
-    
-                response= "Please enter your Number Plate"
-                let noPlate = regex(req.body.text.body)
+            } else {
+
+                response = "Reply with Parking to enter your Number plate"
                 const user = new User({
-                    "username": req.body.from,
-                    "plate": noPlate
+                    "userName": message.from,
+                    "numberPlate": noPlate,
+                    "timestamp": Date.now()
                 })
                 const saveUser = user.save()
-                response = "Your amount is 50"
-
-                if(message === "Pay"){
-                    makePayment(
-                        {
-                            "Amount": 300,
-                            "PhoneNumber": body.from,
-                            "NotificationCallBackUrl": "http://5f6a-41-139-133-17.ngrok.io/payment-callback ",
-                            "AccountReference": "Test" 
-                        }
-                    )
-                }
             }
-            
+
+        } else if (message.text.body == "Pay") {
+            makePayment(
+                {
+                    "Amount": 300,
+                    "PhoneNumber": message.from,
+                    "NotificationCallBackUrl": "http://5f6a-41-139-133-17.ngrok.io/payment-callback ",
+                    "AccountReference": "Test"
+                }
+            )
+            response = "Wait for stk push from Mpesa"
+        } else if (message.text.body == "Parking") {
+            response = "Enter Your car plate number"
+            let noPlate = regex.test(message.text.body)
         }
-    }catch(e){
-        throw e
+
+        return response
+
+    } catch (e) {
+        console.log('Reply Error', e)
     }
 }
 
