@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const User = mongoose.Schema({
     userName: {
-    type: number,
+    type: Number,
     required: true,
   },
   numberPlate:{
