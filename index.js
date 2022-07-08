@@ -7,6 +7,7 @@ const { sendMessage } = require('./helpers')
 const { getReply }  = require('./reply/reply')
 const { checkPlate }  = require('./payment/payment')
 const { makePayment } = require('./payment/payment')
+const { processPayment } = require('./payment/payment')
 
 // connect to the database
 const { connectDatabase } = require("./config/db")
@@ -43,17 +44,19 @@ app.use(express.json());
 app.post(
   `/callback`,
   async (req, res) => {
-    console.log('message',req.body.text.body)
+    console.log('message',req.body.text.body);
     try {
-      sendMessage({
-        "messaging_product": "whatsapp",
-        "recipient_type": "individual",
-        "to": req.body.from,
-        "type": "text",
-        "text": { // the text object
-          "preview_url": false,
-          "body": req.body.text.body
-        }
+      getReply(req.body.text.body).then(response => {
+        sendMessage({
+          "messaging_product": "whatsapp",
+          "recipient_type": "individual",
+          "to": req.body.from,
+          "type": "text",
+          "text": { // the text object
+            "preview_url": false,
+            "body": response
+          }
+        })
       })
     } catch (e) {
       throw e;
@@ -68,9 +71,13 @@ app.post(
   }
 )
 
-app.get('/',(req,res) => {
-  res.send({message:"Hello"});
+app.post('/mpesa_callback',(req,res) => {
+  console.log("======== MPESA RESPONSE =========");
+  console.log(res.body);
+  processPayment(res.body);
 });
+
+
 
 app.listen(port, () => {
   console.log(`api running on port ${port}`)
