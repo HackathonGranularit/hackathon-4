@@ -17,6 +17,8 @@ dotenv.config()
 
 const mongoDbUri = process.env.MONGO_DB_URL;
 
+let activeUser;
+
 
 connectDatabase(mongoDbUri)
 
@@ -45,6 +47,7 @@ app.post(
   `/callback`,
   async (req, res) => {
     console.log('message',req.body.text.body);
+    activeUser = req.body.from;
     try {
       getReply(req.body.text.body).then(response => {
         sendMessage({
@@ -74,7 +77,19 @@ app.post(
 app.post('/mpesa_callback',(req,res) => {
   console.log("======== MPESA RESPONSE =========");
   console.log(res.body);
-  processPayment(res.body);
+  processPayment(res.body).then(response => {
+    const msg = response.status?'Payment successful':'Payment not successful.Try Again'
+    sendMessage({
+      "messaging_product": "whatsapp",
+      "recipient_type": "individual",
+      "to": activeUser,
+      "type": "text",
+      "text": { // the text object
+        "preview_url": false,
+        "body": msg
+      }
+    })
+  })
 });
 
 
