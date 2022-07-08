@@ -41,6 +41,8 @@ app.post(
   `/callback`,
   async (req, res) => {
     console.log(req.body)
+    let message = replyMessage(req.body.text.body)
+    console.log(message)
     try {
       sendMessage({
         "messaging_product": "whatsapp",
@@ -49,10 +51,10 @@ app.post(
         "type": "text",
         "text": { // the text object
           "preview_url": false,
-          "body": "Provide your Number plate"
+          "body": message
         }
       })
-      replyMessage(req.body.text.body)
+     
     } catch (e) {
       throw e;
     }
