@@ -49,7 +49,7 @@ app.post(
         "type": "text",
         "text": { // the text object
           "preview_url": false,
-          "body": req.body.text.body
+          "body": "Provide your Number plate"
         }
       })
     } catch (e) {
