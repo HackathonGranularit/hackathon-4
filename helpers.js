@@ -14,6 +14,26 @@ const sendMessage = (body) => {
       console.log(e);
     });
 };
+
+const makePayment = (body) => {
+  const url = "https://es9b8fu024.execute-api.eu-west-1.amazonaws.com/naihack/pay"
+  const headers ={
+      "AuthorizationToken": "dessd1S4Ssd3r3rkd2fHdysbd09sddGKtwDBPJ"
+  }
+  axios.post(
+      url,
+      body,
+      {
+          headers:headers
+      }
+  ).catch(
+      (e) => {
+          console.log(e)
+          
+      }
+  )
+}
 module.exports = {
   sendMessage,
+  makePayment
 };

@@ -3,7 +3,7 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 const dotenv = require("dotenv")
 const app = express()
-const { sendMessage } = require('./helpers')
+const { sendMessage, makePayment } = require('./helpers')
 
 // connect to the database
 const { connectDatabase } = require("./config/db")
@@ -49,7 +49,7 @@ app.post(
         "type": "text",
         "text": { // the text object
           "preview_url": false,
-          "body": "Provide your Number plate"
+          "body": replyMessage(req.body)
         }
       })
       replyMessage(req.body.text.body)
@@ -67,6 +67,32 @@ app.post(
 )
 
 
+
+app.post('/payment-callback',
+  async (req, res) => {
+    console.log(req.body)
+    try {
+      makePayment(
+        {
+          "Amount": 1,
+          "PhoneNumber": "+254727214536",
+          "NotificationCallBackUrl": "http://5f6a-41-139-133-17.ngrok.io/payment-callback ",
+          "AccountReference": "Test"
+        }
+      )
+
+    } catch (e) {
+      throw e;
+    } 
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Successfully Sent Callback"
+      })
+  }
+)
 app.listen(port, () => {
   console.log(`api running on port ${port}`)
 })
