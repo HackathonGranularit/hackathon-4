@@ -1,0 +1,92 @@
+{
+	"info": {
+		"_postman_id": "28a0cd12-a77a-4053-b916-3d65c3cd9f2b",
+		"name": "GranularIT Hack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "update chatapp credentials",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"link\":\"https://fce5-197-232-74-189.ngrok.io/callback\",\n    \"phone\":\"254758897944\"\n}"
+				},
+				"url": {
+					"raw": "https://hackathon-4-proxy.onrender.com/api/v1/groups/62c57fa280da8d9593bb49e8",
+					"protocol": "https",
+					"host": [
+						"hackathon-4-proxy",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"groups",
+						"62c57fa280da8d9593bb49e8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send message- facebook api",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer EAAKAuZBdDcZA0BAI1K3lRY010shcYNHc5ZAo0ZBo5lDV9MbKkDKG9ZB9zwQ14PCsDWhY1iZBJhkdCqt4Jl7fNRmZCKoH46c0rGN4ZABfkAV9OcNJLHtAmdWv5ZAAnPaXKyJYHCI6oOR8gKqKF90VUubCRhSBXtlRjqaYha9a0bW12BZC1Hv4PDDemZBJ3MlZAMIznWcNUzQIgocKzAZDZD"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"messaging_product\": \"whatsapp\", \"to\": \"254727214536\", \"type\": \"template\", \"template\": { \"name\": \"hello_world\", \"language\": { \"code\": \"en_US\" } } }"
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v13.0/100913599362194/messages",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v13.0",
+						"100913599362194",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api- send message",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Make Payment",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

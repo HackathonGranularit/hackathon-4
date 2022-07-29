@@ -3,12 +3,11 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 const dotenv = require("dotenv")
 const app = express()
-const { sendMessage } = require('./helpers')
-
+const { sendMessage, makePayment } = require('./helpers')
 // connect to the database
 const { connectDatabase } = require("./config/db")
 const mongoose = require("mongoose");
-
+const replyMessage = require("./reply")
 dotenv.config()
 
 const mongoDbUri = process.env.MONGO_DB_URL;
@@ -40,7 +39,10 @@ app.use(express.json());
 app.post(
   `/callback`,
   async (req, res) => {
-    console.log(req.body)
+    console.log("Request Body",req.body)
+    let message = replyMessage(req.body)
+    console.log("message",message)
+    if (message != null){
     try {
       sendMessage({
         "messaging_product": "whatsapp",
@@ -49,11 +51,14 @@ app.post(
         "type": "text",
         "text": { // the text object
           "preview_url": false,
-          "body": req.body.text.body
-        }
+          "body": message
+        } 
       })
+     
     } catch (e) {
-      throw e;
+      console.log("call back error", e);
+    }}else{
+      console.log('Response is empty')
     }
 
     res
@@ -66,6 +71,51 @@ app.post(
 )
 
 
+
+app.post('/payment-callback',
+  async (req, res) => {
+    result = req.body.ResultCode
+    if (result == 0){
+      try {
+        sendMessage({
+          "messaging_product": "whatsapp",
+          "recipient_type": "individual",
+          "to": req.body.PhoneNumber,
+          "type": "text",
+          "text": { // the text object
+            "preview_url": false,
+            "body": `Payment has been received`
+          }
+        })
+        
+      } catch (error) {
+        sendMessage({
+          "messaging_product": "whatsapp",
+          "recipient_type": "individual",
+          "to": req.body.PhoneNumber,
+          "type": "text",
+          "text": { // the text object
+            "preview_url": false,
+            "body": `Payment of not succesful`
+          }
+        })
+        
+      }
+
+    }
+    else {
+
+    }
+
+    res
+    .status(200)
+    .json({
+      success: true,
+      message: "Successfully Sent Callback"
+    })
+    
+  }
+)
 app.listen(port, () => {
   console.log(`api running on port ${port}`)
 })
